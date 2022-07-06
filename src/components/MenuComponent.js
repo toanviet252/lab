@@ -7,6 +7,7 @@ import {
   CardBody,
   CardTitle,
 } from "reactstrap";
+import DishDetail from "./DishesDetail";
 
 class Menu extends Component {
   constructor(props) {
@@ -17,22 +18,6 @@ class Menu extends Component {
   }
   onDishSelect(dish) {
     this.setState({ selectedDish: dish }); //Ở đây ta đang thay đổi thuộc tính của một state đó là selectedDish từ null => giá trị của biến dish
-  }
-  //   Tạo hàm render các món ăn
-  renderDish(dish) {
-    if (dish != null) {
-      return (
-        <Card>
-          <CardImg width="100%" src={dish.image} alt={dish.name}></CardImg>
-          <CardBody>
-            <CardTitle heading>{dish.name}</CardTitle>
-            <CardText>{dish.description} </CardText>
-          </CardBody>
-        </Card>
-      );
-    } else {
-      return <div></div>;
-    }
   }
 
   render() {
@@ -53,7 +38,8 @@ class Menu extends Component {
     return (
       <div className="container">
         <div className="row">{menu}</div>
-        <div className="row">{this.renderDish(this.state.selectedDish)}</div>
+        {/* Gọi hàm renderDish với biến được định nghĩa trong state */}
+        <DishDetail dish={this.state.selectedDish} />
       </div>
     );
   }
