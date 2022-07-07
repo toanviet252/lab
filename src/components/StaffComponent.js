@@ -19,7 +19,7 @@ class Staffs extends Component {
     this.setState({ className: col });
   }
   // Hàm render từng staff
-  renderStaff(staff) {
+  renderStaff(staff, role) {
     if (staff != null) {
       return (
         <div className="container">
@@ -34,6 +34,7 @@ class Staffs extends Component {
                 Ngày vào công ty: {dateFormat(staff.startDate, "dd/mm/yyyy")}
               </CardText>
               <CardText>Phòng ban: {staff.department.name}</CardText>
+              <CardText>Chức danh: {role.NORMAL_STAFF}</CardText>
               <CardText>Số ngày nghỉ còn lại: {staff.annualLeave}</CardText>
               <CardText>Số ngày đã làm thêm: {staff.overTime}</CardText>
             </CardBody>
@@ -101,7 +102,9 @@ class Staffs extends Component {
         <div className="row ml-1">
           <p>Bấm vào tên nhân viên để xem thông tin</p>
         </div>
-        <div className="row">{this.renderStaff(this.state.selectedStaff)}</div>
+        <div className="row">
+          {this.renderStaff(this.state.selectedStaff, this.props.roles)}
+        </div>
       </div>
     );
   }

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import { Navbar, NavbarBrand } from "reactstrap";
 import Staffs from "./components/StaffComponent";
-import { STAFFS } from "./shared/staffs";
+import { STAFFS, ROLE } from "./shared/staffs";
 
 class App extends Component {
   constructor(props) {
@@ -10,6 +10,7 @@ class App extends Component {
 
     this.state = {
       staffs: STAFFS,
+      roles: ROLE,
     };
   }
   render() {
@@ -20,7 +21,7 @@ class App extends Component {
             <NavbarBrand href="/">Ứng dụng quản lý nhân sự v1.0</NavbarBrand>
           </div>
         </Navbar>
-        <Staffs staffs={this.state.staffs} />
+        <Staffs staffs={this.state.staffs} roles={this.state.roles} />
       </div>
     );
   }
