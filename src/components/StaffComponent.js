@@ -6,11 +6,16 @@ class Staffs extends Component {
     super(props);
     this.state = {
       selectedStaff: null,
-      className: "col-12 col-6 col-4 col-2 ",
+      className: "col-12 col-md-5 col-lg-3 m-2 ",
     };
   }
+  //   Hàm lấy giá trị render cho staff
   onStaffSelect(staff) {
     this.setState({ selectedStaff: staff });
+  }
+  //   Hàm lấy giá trị render cho số cột
+  onClassSelect(col) {
+    this.setState({ className: col });
   }
 
   render() {
@@ -18,7 +23,7 @@ class Staffs extends Component {
     // Lọc lấy dữ liệu staffs gồm các object
     const staff = this.props.staffs.map((staff) => {
       return (
-        <div key={staff.id} className="col-12 col-md-5 m-1">
+        <div key={staff.id} className={this.state.className}>
           <Card onClick={() => this.onStaffSelect(staff)}>
             <CardTitle>{staff.name} </CardTitle>
           </Card>
@@ -27,13 +32,43 @@ class Staffs extends Component {
     });
     return (
       <div className="container">
-        <div className="row">
-          <button className="bg-primary m-3">6 cột</button>
-          <button className="bg-primary m-3">5 cột</button>
-          <button className="bg-primary m-3">4 cột</button>
-          <button className="bg-primary m-3">3 cột</button>
-          <button className="bg-primary m-3">2 cột</button>
-          <button className="bg-primary m-3">1 cột</button>
+        <div className="row col-12">
+          <button
+            onClick={() => this.onClassSelect("col-2 mb-2")}
+            className="btn btn-success m-3"
+          >
+            6 cột
+          </button>
+          <button
+            onClick={() => this.onClassSelect("col-2 mr-3 mb-2")}
+            className="btn btn-success m-3"
+          >
+            5 cột
+          </button>
+          <button
+            onClick={() => this.onClassSelect("col-3 mb-2")}
+            className="btn btn-success m-3"
+          >
+            4 cột
+          </button>
+          <button
+            onClick={() => this.onClassSelect("col-4 mb-2 ")}
+            className="btn btn-success m-3"
+          >
+            3 cột
+          </button>
+          <button
+            onClick={() => this.onClassSelect("col-6 mb-2")}
+            className="btn btn-success m-3"
+          >
+            2 cột
+          </button>
+          <button
+            onClick={() => this.onClassSelect("col-12 mb-2")}
+            className="btn btn-success m-3"
+          >
+            1 cột
+          </button>
         </div>
         <div className="row">{staff}</div>
         <div className="row ml-1">
