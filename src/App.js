@@ -7,6 +7,7 @@ import { STAFFS } from "./shared/staffs";
 class App extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       staffs: STAFFS,
     };
