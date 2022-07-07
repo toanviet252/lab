@@ -23,9 +23,10 @@ class Staffs extends Component {
       return (
         <div className="container">
           <div className="row">
-            <CardImg src={staff.image}></CardImg>
-            <CardTitle heading>Tên nhân viên: {staff.name}</CardTitle>
+            <CardImg src={staff.image} className="col-sm-12 col-md-3"></CardImg>
             <CardBody>
+              <CardTitle heading>Tên nhân viên: {staff.name}</CardTitle>
+
               <CardText>Ngày vào công ty: {staff.startDate}</CardText>
             </CardBody>
           </div>
