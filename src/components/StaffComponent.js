@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, CardTitle } from "reactstrap";
+import { Card, CardTitle, CardBody, CardImg, CardText } from "reactstrap";
 
 class Staffs extends Component {
   constructor(props) {
@@ -16,6 +16,24 @@ class Staffs extends Component {
   //   Hàm lấy giá trị render cho số cột
   onClassSelect(col) {
     this.setState({ className: col });
+  }
+  // Hàm render từng staff
+  renderStaff(staff) {
+    if (staff != null) {
+      return (
+        <div className="container">
+          <div className="row">
+            <CardImg src={staff.image}></CardImg>
+            <CardTitle heading>Tên nhân viên: {staff.name}</CardTitle>
+            <CardBody>
+              <CardText>Ngày vào công ty: {staff.startDate}</CardText>
+            </CardBody>
+          </div>
+        </div>
+      );
+    } else {
+      return <div></div>;
+    }
   }
 
   render() {
@@ -74,6 +92,7 @@ class Staffs extends Component {
         <div className="row ml-1">
           <p>Bấm vào tên nhân viên để xem thông tin</p>
         </div>
+        <div className="row">{this.renderStaff(this.state.selectedStaff)}</div>
       </div>
     );
   }
