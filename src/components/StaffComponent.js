@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Card, CardTitle, CardBody, CardImg, CardText } from "reactstrap";
+import dateFormat from "dateformat";
 
 class Staffs extends Component {
   constructor(props) {
@@ -26,8 +27,15 @@ class Staffs extends Component {
             <CardImg src={staff.image} className="col-sm-12 col-md-3"></CardImg>
             <CardBody>
               <CardTitle heading>Tên nhân viên: {staff.name}</CardTitle>
-
-              <CardText>Ngày vào công ty: {staff.startDate}</CardText>
+              <CardText>
+                Ngày sinh: {dateFormat(staff.doB, "dd/mm/yyyy")}
+              </CardText>
+              <CardText>
+                Ngày vào công ty: {dateFormat(staff.startDate, "dd/mm/yyyy")}
+              </CardText>
+              <CardText>Phòng ban: {staff.department.name}</CardText>
+              <CardText>Số ngày nghỉ còn lại: {staff.annualLeave}</CardText>
+              <CardText>Số ngày đã làm thêm: {staff.overTime}</CardText>
             </CardBody>
           </div>
         </div>
