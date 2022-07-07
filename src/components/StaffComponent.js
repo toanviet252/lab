@@ -4,6 +4,12 @@ import { Card, CardTitle } from "reactstrap";
 class Staffs extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      selectedStaff: null,
+    };
+  }
+  onStaffSelect(staff) {
+    this.setState((selectedStaff = staff));
   }
 
   render() {
