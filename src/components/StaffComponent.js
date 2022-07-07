@@ -53,7 +53,7 @@ class Staffs extends Component {
       return (
         <div key={staff.id} className={this.state.className}>
           <Card onClick={() => this.onStaffSelect(staff)}>
-            <CardTitle>{staff.name} </CardTitle>
+            <CardText className="btn btn-light">{staff.name} </CardText>
           </Card>
         </div>
       );
