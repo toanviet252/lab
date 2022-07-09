@@ -26,7 +26,7 @@ class Main extends Component {
             <NavbarBrand href="/">Ristorante Con Fusion</NavbarBrand>
           </div>
         </Navbar>
-        {/* Bổ xung thêm đoạn code dishes={this.state.dishes} vào trong Menu */}
+        {/* Gọi Menu component */}
         <Menu
           dishes={this.state.dishes}
           onClick={(dishID) => this.onDishSelect(dishID)}
