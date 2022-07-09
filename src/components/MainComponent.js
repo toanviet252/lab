@@ -4,6 +4,8 @@ import Menu from "./MenuComponent";
 // import biến DISHES bao gồm thông tin các món ăn từ file dishes.js trong folder shared
 import DishDetail from "./DishesDetail";
 import { DISHES } from "../shared/dishes";
+import Header from "./HeaderComponent";
+import Footer from "./FooterComponent";
 
 class Main extends Component {
   // Tiếp theo cần khai báo state chứa biến DISHES
@@ -21,11 +23,7 @@ class Main extends Component {
   render() {
     return (
       <div>
-        <Navbar dark color="warning">
-          <div className="container ">
-            <NavbarBrand href="/">Ristorante Con Fusion</NavbarBrand>
-          </div>
-        </Navbar>
+        <Header />
         {/* Gọi Menu component */}
         <Menu
           dishes={this.state.dishes}
@@ -39,6 +37,7 @@ class Main extends Component {
             )[0]
           }
         />
+        <Footer />
       </div>
     );
   }
