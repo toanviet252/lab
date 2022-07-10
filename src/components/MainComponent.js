@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 import { Navbar, NavbarBrand } from "reactstrap";
 import Menu from "./MenuComponent";
-// import biến DISHES bao gồm thông tin các món ăn từ file dishes.js trong folder shared
 import DishDetail from "./DishesDetail";
 import { DISHES } from "../shared/dishes";
 import Header from "./HeaderComponent";
 import Footer from "./FooterComponent";
+import Home from "./HomeComponent";
+// ../folder để import file nằm khác thư mục
+// ./folder để import file cùng thư mục với file đang sử dụng
+import { Switch, Route, Redirect } from "react-router-dom";
 
 class Main extends Component {
   // Tiếp theo cần khai báo state chứa biến DISHES
@@ -21,22 +24,21 @@ class Main extends Component {
   }
 
   render() {
+    const HomePage = () => {
+      return <Home />;
+    };
     return (
       <div>
         <Header />
-        {/* Gọi Menu component */}
-        <Menu
-          dishes={this.state.dishes}
-          onClick={(dishID) => this.onDishSelect(dishID)}
-        />
-        {/* Gọi component DishDetail*/}
-        <DishDetail
-          dish={
-            this.state.dishes.filter(
-              (dish) => dish.id === this.state.selectedDish
-            )[0]
-          }
-        />
+        <Switch>
+          <Route path="/home" component={HomePage} />
+          <Route
+            exact
+            path="/menu"
+            component={() => <Menu dishes={this.state.dishes} />}
+          />
+          <Redirect to="/home" />
+        </Switch>
         <Footer />
       </div>
     );
