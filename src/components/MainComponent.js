@@ -1,14 +1,18 @@
 import React, { Component } from "react";
-import { Navbar, NavbarBrand } from "reactstrap";
 import Menu from "./MenuComponent";
 import DishDetail from "./DishesDetail";
 import { DISHES } from "../shared/dishes";
 import Header from "./HeaderComponent";
 import Footer from "./FooterComponent";
 import Home from "./HomeComponent";
+import Contact from "./ContactComponent";
 // ../folder để import file nằm khác thư mục
 // ./folder để import file cùng thư mục với file đang sử dụng
 import { Switch, Route, Redirect } from "react-router-dom";
+import { Navbar, NavbarBrand } from "reactstrap";
+import { COMMENTS } from "../shared/comments";
+import { PROMOTIONS } from "../shared/promotions";
+import { LEADERS } from "../shared/leaders";
 
 class Main extends Component {
   // Tiếp theo cần khai báo state chứa biến DISHES
@@ -17,6 +21,9 @@ class Main extends Component {
     this.state = {
       dishes: DISHES,
       selectedDish: null,
+      comments: COMMENTS,
+      leaders: LEADERS,
+      promotions: PROMOTIONS,
     };
   }
   onDishSelect(dishID) {
@@ -25,8 +32,15 @@ class Main extends Component {
 
   render() {
     const HomePage = () => {
-      return <Home />;
+      return (
+        <Home
+          dish={this.state.dishes.filter((dish) => dish.featured)[0]}
+          promotion={this.state.promotions.filter((promo) => promo.featured)[0]}
+          leader={this.state.leaders.filter((leader) => leader.featured)[0]}
+        />
+      );
     };
+    console.log(this.state.leaders.filter((leader) => leader.featured));
     return (
       <div>
         <Header />
@@ -37,6 +51,7 @@ class Main extends Component {
             path="/menu"
             component={() => <Menu dishes={this.state.dishes} />}
           />
+          <Route exact path="/contactus" component={Contact} />
           <Redirect to="/home" />
         </Switch>
         <Footer />
