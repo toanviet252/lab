@@ -13,6 +13,7 @@ import { Navbar, NavbarBrand } from "reactstrap";
 import { COMMENTS } from "../shared/comments";
 import { PROMOTIONS } from "../shared/promotions";
 import { LEADERS } from "../shared/leaders";
+import About from "./AboutUs.Component";
 
 class Main extends Component {
   // Tiếp theo cần khai báo state chứa biến DISHES
@@ -37,6 +38,7 @@ class Main extends Component {
           dish={
             this.state.dishes.filter(
               (dish) => dish.id === parseInt(match.params.dishID, 10)
+              //parseInt phân tích cú pháp một giá trị dạng string và trả về số nguyên đầu tiên, 10 ở đây là chọn hệ số thập phân
             )[0]
           } //trả về index đầu tiên từ object dishes
           comments={this.state.comments.filter(
@@ -45,6 +47,7 @@ class Main extends Component {
         />
       );
     };
+
     const HomePage = () => {
       return (
         <Home
@@ -67,6 +70,10 @@ class Main extends Component {
           />
           <Route path="/menu/:dishID" component={DishWithID} />
           <Route exact path="/contactus" component={Contact} />
+          <Route
+            path="/aboutus"
+            component={() => <About leaders={this.state.leaders} />}
+          />
           <Redirect to="/home" />
         </Switch>
         <Footer />
