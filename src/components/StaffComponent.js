@@ -25,6 +25,8 @@ function RenderStaff({ staff }) {
     </div>
   );
 }
+
+// Container Component
 const Staffs = function (props) {
   // Lọc lấy dữ liệu staffs gồm các object
 

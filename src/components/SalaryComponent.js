@@ -44,11 +44,13 @@ function RenderSalrary({ salary, salaryValue }) {
   );
 }
 
+// Container Component
 const SalaryTable = function (props) {
   console.log(props.luong);
   const [staffList, setStaffList] = useState(props.luong);
   console.log([staffList]);
   function sortSalary(sorttype) {
+    // copy mảng staffList để ko làm thay đổi giá trị
     let sortedStaffList = [...staffList];
     let salaryA = 0;
     let salaryB = 0;
@@ -71,8 +73,8 @@ const SalaryTable = function (props) {
 
     setStaffList(sortedStaffList);
   }
-
-  const salary = props.luong.map((salary) => {
+  // staffList sẽ thay đổi khi nhấn vào button => {salary} cũng thay đổi theo
+  const salary = staffList.map((salary) => {
     return (
       <div key={salary.id} className="col-12 col-md-5 col-lg-3 m-1">
         <RenderSalrary
@@ -101,7 +103,7 @@ const SalaryTable = function (props) {
             <span class="fa fa-sort-amount-asc"></span> Lương Thấp
           </Button>
 
-          <Button onClick={() => sortSalary("increase")}>
+          <Button onClick={() => sortSalary("decrease")}>
             <span class="fa fa-sort-amount-desc"></span> Lương Cao
           </Button>
         </div>

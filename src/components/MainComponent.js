@@ -8,6 +8,7 @@ import { STAFFS, ROLE, DEPARTMENTS } from "../shared/staffs";
 import { Switch, Route } from "react-router-dom";
 import SalaryTable from "./SalaryComponent";
 
+// Presentation Component
 class Main extends Component {
   constructor(props) {
     super(props);
