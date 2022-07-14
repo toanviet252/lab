@@ -52,12 +52,12 @@ const Staffs = function (props) {
           <hr />
         </div>
       </div>
-      <div className="row">{staffList}</div>
       <div className="row ml-1">
         <p>
           <em>Bấm vào nhân viên để xem thông tin chi tiết</em>
         </p>
       </div>
+      <div className="row">{staffList}</div>
     </div>
   );
 };

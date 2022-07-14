@@ -56,6 +56,7 @@ const SalaryTable = function (props) {
     let salaryB = 0;
 
     if (sorttype === "increase") {
+      //array.sort có sẵn trong thư viện react
       sortedStaffList.sort(function (a, b) {
         salaryA = calcSalary(a.salaryScale, a.overTime);
         salaryB = calcSalary(b.salaryScale, b.overTime);
@@ -70,7 +71,7 @@ const SalaryTable = function (props) {
         return salaryB - salaryA;
       });
     }
-
+    // Đổi state của array setstaffLish
     setStaffList(sortedStaffList);
   }
   // staffList sẽ thay đổi khi nhấn vào button => {salary} cũng thay đổi theo
