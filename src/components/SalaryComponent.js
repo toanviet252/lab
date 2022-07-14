@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardBody,
@@ -6,6 +6,7 @@ import {
   CardText,
   Breadcrumb,
   BreadcrumbItem,
+  Button,
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import NumberFormat from "react-number-format";
@@ -44,6 +45,33 @@ function RenderSalrary({ salary, salaryValue }) {
 }
 
 const SalaryTable = function (props) {
+  console.log(props.luong);
+  const [staffList, setStaffList] = useState(props.luong);
+  console.log([staffList]);
+  function sortSalary(sorttype) {
+    let sortedStaffList = [...staffList];
+    let salaryA = 0;
+    let salaryB = 0;
+
+    if (sorttype === "increase") {
+      sortedStaffList.sort(function (a, b) {
+        salaryA = calcSalary(a.salaryScale, a.overTime);
+        salaryB = calcSalary(b.salaryScale, b.overTime);
+        return salaryA - salaryB;
+      });
+    }
+
+    if (sorttype === "decrease") {
+      sortedStaffList.sort(function (a, b) {
+        salaryA = calcSalary(a.salaryScale, a.overTime);
+        salaryB = calcSalary(b.salaryScale, b.overTime);
+        return salaryB - salaryA;
+      });
+    }
+
+    setStaffList(sortedStaffList);
+  }
+
   const salary = props.luong.map((salary) => {
     return (
       <div key={salary.id} className="col-12 col-md-5 col-lg-3 m-1">
@@ -63,6 +91,20 @@ const SalaryTable = function (props) {
           </BreadcrumbItem>
           <BreadcrumbItem>Bảng lương</BreadcrumbItem>
         </Breadcrumb>
+      </div>
+      <div id="sort" className="row">
+        <div className="col-12">
+          <h5>Sắp Xếp Theo Lương</h5>
+        </div>
+        <div className="col-12">
+          <Button onClick={() => sortSalary("increase")}>
+            <span class="fa fa-sort-amount-asc"></span> Lương Thấp
+          </Button>
+
+          <Button onClick={() => sortSalary("increase")}>
+            <span class="fa fa-sort-amount-desc"></span> Lương Cao
+          </Button>
+        </div>
       </div>
       <div className="row">{salary}</div>
     </div>
