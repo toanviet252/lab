@@ -4,6 +4,7 @@ import Header from "./HeaderComponent";
 import Footer from "./FooterComponent";
 
 import { STAFFS, ROLE } from "../shared/staffs";
+import { Switch, Route } from "react-router-dom";
 
 class Main extends Component {
   constructor(props) {
@@ -20,6 +21,13 @@ class Main extends Component {
     return (
       <div>
         <Header />
+        <Switch>
+          <Route
+            exact
+            path="/nhanvien"
+            component={() => <Staffs staffs={this.state.staffs} />}
+          />
+        </Switch>
         <Footer />
       </div>
     );
