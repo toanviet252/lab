@@ -8,7 +8,7 @@ import {
   BreadcrumbItem,
 } from "reactstrap";
 import { Link } from "react-router-dom";
-
+import NumberFormat from "react-number-format";
 // Hàm tính lương
 function calcSalary(salaryScale, overTime) {
   const basicSal = 3000000;
@@ -17,29 +17,36 @@ function calcSalary(salaryScale, overTime) {
 }
 
 function RenderSalrary({ salary, salaryValue }) {
+  // format số lương
+
   return (
-    <div className="container">
-      <div className="row">
+    <Card>
+      <CardBody>
+        <CardTitle>{salary.name}</CardTitle>
+        <CardText>Mã nhân viên: {salary.id}</CardText>
+        <CardText>Hệ số lương: {salary.salaryScale}</CardText>
+        <CardText>Số ngày làm thêm: {salary.overTime}</CardText>
         <Card>
-          <CardBody>
-            <CardTitle>{salary.name}</CardTitle>
-            <CardText>Mã nhân viên:{salary.id}</CardText>
-            <CardText>Hệ số lương:{salary.salaryScale}</CardText>
-            <CardText>Số ngày làm thêm:{salary.overTime}</CardText>
-            <Card>
-              <CardTitle>Lương:{salaryValue} VNĐ</CardTitle>
-            </Card>
-          </CardBody>
+          <CardText>
+            Lương:
+            <NumberFormat
+              value={salaryValue}
+              displayType="text"
+              thousandSeparator={true}
+              decimalScale={0}
+            />{" "}
+            VNĐ
+          </CardText>
         </Card>
-      </div>
-    </div>
+      </CardBody>
+    </Card>
   );
 }
 
 const SalaryTable = function (props) {
   const salary = props.luong.map((salary) => {
     return (
-      <div key={salary.id}>
+      <div key={salary.id} className="col-12 col-md-5 col-lg-3 m-1">
         <RenderSalrary
           salary={salary}
           salaryValue={calcSalary(salary.salaryScale, salary.overTime)}
