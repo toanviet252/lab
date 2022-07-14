@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Staffs from "./StaffComponent";
+import Header from "./HeaderComponent";
 
 import { STAFFS, ROLE } from "../shared/staffs";
 
@@ -15,7 +16,11 @@ class Main extends Component {
   }
 
   render() {
-    return <div></div>;
+    return (
+      <div>
+        <Header />
+      </div>
+    );
   }
 }
 
