@@ -32,7 +32,9 @@ const Staffs = function (props) {
   const staffList = props.staffs.map((staff) => {
     return (
       <div key={staff.id} className="col-lg-2 col-md-3 col-sm-6">
-        <RenderStaff staff={staff} onClick={props.onClick} />
+        <Card className="mb-3">
+          <RenderStaff staff={staff} onClick={props.onClick} />
+        </Card>
       </div>
     );
   });

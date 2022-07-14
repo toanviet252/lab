@@ -28,16 +28,18 @@ class Header extends Component {
           <div className="container ">
             <NavbarToggler onClick={this.toggleNav} />
             <NavbarBrand className=" mr-auto">
-              <NavLink className="nav-link" to="/nhanvien">
-                <img
-                  src="assets/images/logo.png"
-                  height="30"
-                  width="41"
-                  alt="Ristorante Con Fusion"
-                />
-              </NavLink>
               <Collapse isOpen={this.state.isNavOpen} navbar>
                 <Nav navbar>
+                  <NavItem className="mr-2">
+                    <NavLink className="nav-link" to="/nhanvien">
+                      <img
+                        src="assets/images/logo.png"
+                        height="30"
+                        width="41"
+                        alt="Ristorante Con Fusion"
+                      />
+                    </NavLink>
+                  </NavItem>
                   <NavItem className="mr-2">
                     <NavLink className="nav-link" to="/nhanvien">
                       <span className="fa fa-users fa-lg"> Nhân viên</span>
