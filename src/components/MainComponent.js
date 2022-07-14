@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Staffs from "./StaffComponent";
 import Header from "./HeaderComponent";
 import Footer from "./FooterComponent";
-
+import StaffDetail from "./StaffDetail";
 import { STAFFS, ROLE } from "../shared/staffs";
 import { Switch, Route } from "react-router-dom";
 
@@ -18,6 +18,17 @@ class Main extends Component {
   }
 
   render() {
+    const StaffId = ({ match }) => {
+      return (
+        <StaffDetail
+          staff={
+            this.state.staffs.filter(
+              (staff) => staff.id === parseInt(match.params.staffID, 10)
+            )[0]
+          }
+        />
+      );
+    };
     return (
       <div>
         <Header />
@@ -27,6 +38,7 @@ class Main extends Component {
             path="/nhanvien"
             component={() => <Staffs staffs={this.state.staffs} />}
           />
+          <Route path="/nhanvien/:staffID" component={StaffId} />
         </Switch>
         <Footer />
       </div>
