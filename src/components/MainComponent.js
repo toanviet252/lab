@@ -6,6 +6,7 @@ import StaffDetail from "./StaffDetail";
 import Department from "./DepartmentsComponent";
 import { STAFFS, ROLE, DEPARTMENTS } from "../shared/staffs";
 import { Switch, Route } from "react-router-dom";
+import SalaryTable from "./SalaryComponent";
 
 class Main extends Component {
   constructor(props) {
@@ -46,6 +47,10 @@ class Main extends Component {
             component={() => (
               <Department departments={this.state.departments} />
             )}
+          />
+          <Route
+            path="/bangluong"
+            component={() => <SalaryTable luong={this.state.staffs} />}
           />
         </Switch>
         <Footer />
