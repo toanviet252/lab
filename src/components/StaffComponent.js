@@ -12,7 +12,6 @@ import { Link } from "react-router-dom";
 
 // Hàm render toàn bộ staff
 function RenderStaff({ staff }) {
-  console.log(staff.name);
   return (
     <div className="container">
       <div className="row">
@@ -28,7 +27,7 @@ function RenderStaff({ staff }) {
 }
 const Staffs = function (props) {
   // Lọc lấy dữ liệu staffs gồm các object
-  console.log(props);
+
   const staffList = props.staffs.map((staff) => {
     return (
       <div key={staff.id} className="col-lg-2 col-md-3 col-sm-6">

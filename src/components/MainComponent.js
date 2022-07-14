@@ -3,7 +3,8 @@ import Staffs from "./StaffComponent";
 import Header from "./HeaderComponent";
 import Footer from "./FooterComponent";
 import StaffDetail from "./StaffDetail";
-import { STAFFS, ROLE } from "../shared/staffs";
+import Department from "./DepartmentsComponent";
+import { STAFFS, ROLE, DEPARTMENTS } from "../shared/staffs";
 import { Switch, Route } from "react-router-dom";
 
 class Main extends Component {
@@ -13,7 +14,8 @@ class Main extends Component {
     this.state = {
       staffs: STAFFS,
       roles: ROLE,
-      selectStaff: null,
+
+      departments: DEPARTMENTS,
     };
   }
 
@@ -39,6 +41,12 @@ class Main extends Component {
             component={() => <Staffs staffs={this.state.staffs} />}
           />
           <Route path="/nhanvien/:staffID" component={StaffId} />
+          <Route
+            path="/phongban"
+            component={() => (
+              <Department departments={this.state.departments} />
+            )}
+          />
         </Switch>
         <Footer />
       </div>
