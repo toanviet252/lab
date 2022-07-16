@@ -71,7 +71,7 @@ const SalaryTable = function (props) {
         return salaryB - salaryA;
       });
     }
-    // Đổi state của array setstaffLish
+    // Đổi state của array setstaffList
     setStaffList(sortedStaffList);
   }
   // staffList sẽ thay đổi khi nhấn vào button => {salary} cũng thay đổi theo
