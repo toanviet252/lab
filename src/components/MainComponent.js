@@ -16,10 +16,23 @@ class Main extends Component {
     this.state = {
       staffs: STAFFS,
       roles: ROLE,
-
       departments: DEPARTMENTS,
     };
+    this.addStaff = this.addStaff.bind(this);
   }
+  // Hàm thêm nhân viên
+  addStaff = (staff) => {
+    //Tìm kiếm giá trị department trùng với phần chọn trong select option
+    const department = this.state.departments.find(
+      (x) => x.id === staff.department
+    );
+    staff.department = department;
+    const id = Math.floor(Math.random() * 10000 + 16);
+    const newStaff = { id, ...staff };
+    this.setState({
+      staffs: [...this.state.staffs, newStaff],
+    });
+  };
 
   render() {
     const StaffId = ({ match }) => {
@@ -40,7 +53,9 @@ class Main extends Component {
           <Route
             exact
             path="/nhanvien"
-            component={() => <Staffs staffs={this.state.staffs} />}
+            component={() => (
+              <Staffs onAdd={this.addStaff} staffs={this.state.staffs} />
+            )}
           />
           <Route path="/nhanvien/:staffID" component={StaffId} />
           <Route
