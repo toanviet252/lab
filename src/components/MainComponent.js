@@ -4,18 +4,24 @@ import Header from "./HeaderComponent";
 import Footer from "./FooterComponent";
 import StaffDetail from "./StaffDetail";
 import Department from "./DepartmentsComponent";
-import { STAFFS, ROLE, DEPARTMENTS } from "../shared/staffs";
-import { Switch, Route } from "react-router-dom";
+import { STAFFS, DEPARTMENTS } from "../shared/staffs";
+import { Switch, Route, withRouter } from "react-router-dom";
 import SalaryTable from "./SalaryComponent";
+import { connect } from "react-redux";
+const mapStateToProps = (state) => {
+  return {
+    staffs: state.staffs,
+    roles: state.roles,
+    departments: state.departments,
+  };
+};
 
 // Presentation Component
 class Main extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       staffs: STAFFS,
-      roles: ROLE,
       departments: DEPARTMENTS,
     };
     this.addStaff = this.addStaff.bind(this);
@@ -75,4 +81,4 @@ class Main extends Component {
   }
 }
 
-export default Main;
+export default withRouter(connect(mapStateToProps)(Main));
