@@ -121,7 +121,7 @@ class Staffs extends Component {
     };
     if (this.state.touched.name && name.length < 5)
       errors.name = "Nhập đầy đủ họ và tên";
-    if (this.state.touched.name && name.length > 30)
+    else if (this.state.touched.name && name.length > 30)
       errors.name = "Không được nhập quá 30 kí tự";
     if (this.state.touched.doB && doB.length < 1) errors.doB = "Yêu cầu nhập";
     if (this.state.touched.startDate && startDate.length < 1)
