@@ -37,7 +37,6 @@ class DishDetail extends Component {
     );
   }
   RenderComments(comments) {
-    console.log(comments);
     if (comments != null) {
       return (
         <div className="col-12">
