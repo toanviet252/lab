@@ -10,7 +10,8 @@ import Contact from "./ContactComponent";
 import About from "./AboutUs.Component";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { addComment } from "../redux/ActionCreators";
+import { addComment, fetchDish } from "../redux/ActionCreators";
+
 const mapStateToProps = (state) => {
   return {
     dishes: state.dishes,
@@ -22,12 +23,17 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   addComment: (dishID, rating, author, comment) =>
     dispatch(addComment(dishID, rating, author, comment)),
+  fetchDishes: () => {
+    dispatch(fetchDish());
+  },
 });
 
 class Main extends Component {
-  // Tiếp theo cần khai báo state chứa biến DISHES
   constructor(props) {
     super(props);
+  }
+  componentDidMount() {
+    this.props.fetchDishes();
   }
 
   render() {
@@ -35,11 +41,13 @@ class Main extends Component {
       return (
         <DishDetail
           dish={
-            this.props.dishes.filter(
+            this.props.dishes.dishes.filter(
               (dish) => dish.id === parseInt(match.params.dishID, 10)
               //parseInt phân tích cú pháp một giá trị dạng string và trả về số nguyên đầu tiên, 10 ở đây là chọn hệ số thập phân
             )[0]
           } //trả về index đầu tiên từ object dishes
+          dishesLoading={this.props.dishes.isLoading}
+          errMess={this.props.dishes.errMess}
           comments={this.props.comments.filter(
             (comment) => comment.dishId === parseInt(match.params.dishID, 10)
           )}
@@ -51,7 +59,9 @@ class Main extends Component {
     const HomePage = () => {
       return (
         <Home
-          dish={this.props.dishes.filter((dish) => dish.featured)[0]}
+          dish={this.props.dishes.dishes.filter((dish) => dish.featured)[0]}
+          dishesLoading={this.props.dishes.isLoading}
+          dishesErrMess={this.props.dishes.errMess}
           promotion={this.props.promotions.filter((promo) => promo.featured)[0]}
           leader={this.props.leaders.filter((leader) => leader.featured)[0]}
         />
