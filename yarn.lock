@@ -7868,8 +7868,8 @@
   dependencies:
     "deep-diff" "^0.3.5"
 
-"redux-thunk@2.2.0":
-  "integrity" "sha1-5hWhbha0ehmlFXZhM9Hj6Zt4UuU="
+"redux-thunk@^2.2.0":
+  "integrity" "sha512-OOFWh9mt/7i94QPq4IAxhSIUyfIJJRnk6pe1IwgXethQik3kyg1wuxVZZlW9QOmL5rP/MrwzV+Cb+/HBKlvM8Q=="
   "resolved" "https://registry.npmjs.org/redux-thunk/-/redux-thunk-2.2.0.tgz"
   "version" "2.2.0"
 

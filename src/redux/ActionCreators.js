@@ -19,16 +19,16 @@ export const addComment = (dishID, rating, author, comment) => ({
 1. Hàm dispatch thực hiện loading một món ăn
 2. Sau 2 giây, hàm dispatch thực hiện thêm món ăn
 */
-export const fetchDish = () => (dispatch) => {
+export const fetchDishes = () => (dispatch) => {
   dispatch(dishesLoading(true));
   setTimeout(() => {
     dispatch(addDishes(DISHES));
   }, 2000);
 };
 
-export const dishesLoading = () => {
-  type: ActionTypes.DISHES_LOADING;
-};
+export const dishesLoading = () => ({
+  type: ActionTypes.DISHES_LOADING,
+});
 // hàm dishesFailed trả về 1 action nên cần viết ({})
 export const dishesFailed = (errmess) => ({
   type: ActionTypes.DISHES_FAILED,
