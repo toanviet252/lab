@@ -26,6 +26,7 @@ export const fetchDishes = () => (dispatch) => {
   }, 2000);
 };
 
+// Lưu ý: Khi viết một action cần viết dưới dạng () => () để trả về 1 giá trị nào đó
 export const dishesLoading = () => ({
   type: ActionTypes.DISHES_LOADING,
 });
