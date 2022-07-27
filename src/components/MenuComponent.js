@@ -9,6 +9,7 @@ import {
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import { Loading } from "./LoadingComponent";
+import { baseUrl } from "../shared/baseUrl";
 
 // Biến class component thành 1 functional component
 function RenderMenuItem({ dish }) {
@@ -16,7 +17,11 @@ function RenderMenuItem({ dish }) {
     <Card>
       {/* Chuyển toàn bộ phần thông tin món ăn thành một link */}
       <Link to={`/menu/${dish.id}`}>
-        <CardImg width="100%" src={dish.image} alt={dish.name}></CardImg>
+        <CardImg
+          width="100%"
+          src={baseUrl + "/" + dish.image}
+          alt={dish.name}
+        ></CardImg>
         <CardImgOverlay>
           <CardTitle heading>{dish.name}</CardTitle>
         </CardImgOverlay>
