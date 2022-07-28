@@ -42,8 +42,8 @@ class DishDetail extends Component {
       </div>
     );
   }
-  RenderComments(comments, addComment, dishID) {
-    console.log("addComment", addComment);
+  RenderComments(comments, postComment, dishID) {
+    console.log("postComment", postComment);
     if (comments != null) {
       return (
         <div className="col-12">
@@ -62,7 +62,7 @@ class DishDetail extends Component {
               );
             })}
           </ul>
-          <CommentForm dishID={dishID} addComment={addComment} />
+          <CommentForm dishID={dishID} postComment={postComment} />
         </div>
       );
     } else {
@@ -112,7 +112,7 @@ class DishDetail extends Component {
             <div className="col-12 col-md-5 m-1">
               {this.RenderComments(
                 this.props.comments,
-                this.props.addComment,
+                this.props.postComment,
                 this.props.dish.id
               )}
             </div>
@@ -139,7 +139,7 @@ class CommentForm extends Component {
   }
   handleSubmit(values) {
     this.toggleModal();
-    this.props.addComment(
+    this.props.postComment(
       this.props.dishID,
       values.rating,
       values.author,

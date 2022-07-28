@@ -4,15 +4,59 @@ import * as ActionTypes from "./ActionTypes";
 import { baseUrl } from "../shared/baseUrl";
 
 // Từ đây trở xuống chính là các Action mà ta đang định nghĩa
-export const addComment = (dishID, rating, author, comment) => ({
+export const addComment = (comment) => ({
   type: ActionTypes.ADD_COMMENT,
   payload: {
+    comment: comment,
+  },
+});
+
+export const postComment = (dishID, rating, author, comment) => (dispatch) => {
+  const newComment = {
     dishId: dishID,
     rating: rating,
     author: author,
     comment: comment,
-  },
-});
+  };
+  newComment.date = new Date().toISOString();
+  //Tiếp theo post lên server trong object comments
+  return (
+    fetch(baseUrl + "/comments", {
+      method: "POST",
+      body: JSON.stringify(newComment),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "same-origin",
+    })
+      //Phần hiển thị lỗi khi fetch từ server
+      .then(
+        (response) => {
+          if (response.ok) {
+            return response;
+          } else {
+            var error = new Error(
+              "Error" + response.status + ":" + response.statusText
+            );
+            error.response = response;
+            throw error;
+          }
+        },
+        (error) => {
+          var errMess = new Error(error.message);
+          throw errMess;
+        }
+      )
+      .then((res) => res.json())
+      .then((res) => dispatch(addComment(res)))
+      .catch((err) => {
+        console.log("POST commnet", err.message);
+        alert(`Your comment couldn't posted
+        ${err.message}`);
+      })
+  );
+};
+
 //////////////////////////////////////////////
 // Định nghĩa một redux thunk
 /*Nó đang thực hiện 2 công việc: Đầu tiên hàm fetchDish() trả về 1 hàm là dispatch()
