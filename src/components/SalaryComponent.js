@@ -18,8 +18,6 @@ function calcSalary(salaryScale, overTime) {
 }
 
 function RenderSalrary({ salary, salaryValue }) {
-  // format số lương
-
   return (
     <Card>
       <CardBody>
@@ -44,10 +42,8 @@ function RenderSalrary({ salary, salaryValue }) {
   );
 }
 
-// Container Component
 const SalaryTable = function (props) {
-  console.log(props.luong);
-  const [staffList, setStaffList] = useState(props.luong);
+  const [staffList, setStaffList] = useState(props.salaryStaffs);
   console.log([staffList]);
   function sortSalary(sorttype) {
     // copy mảng staffList để ko làm thay đổi giá trị
@@ -75,7 +71,7 @@ const SalaryTable = function (props) {
     setStaffList(sortedStaffList);
   }
   // staffList sẽ thay đổi khi nhấn vào button => {salary} cũng thay đổi theo
-  const salary = staffList.map((salary) => {
+  const salary = props.salaryStaffs.map((salary) => {
     return (
       <div key={salary.id} className="col-12 col-md-5 col-lg-3 m-1">
         <RenderSalrary
@@ -87,7 +83,7 @@ const SalaryTable = function (props) {
   });
   return (
     <div className="container">
-      <div className="row">
+      <div className="row mt-1">
         <Breadcrumb>
           <BreadcrumbItem>
             <Link to="/nhanvien">Nhân viên</Link>

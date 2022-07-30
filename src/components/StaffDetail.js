@@ -9,8 +9,11 @@ import {
   Breadcrumb,
   BreadcrumbItem,
 } from "reactstrap";
+import { Loading } from "./LoadingComponent";
 
-function RenderStaffDetail({ staff }) {
+function RenderStaffDetail({ staff, department }) {
+  const staffDepart = department.filter((x) => x.id === staff.departmentId)[0];
+  console.log(staffDepart);
   return (
     <div className="container">
       <div className="row">
@@ -21,7 +24,7 @@ function RenderStaffDetail({ staff }) {
           <CardText>
             Ngày vào công ty: {dateFormat(staff.startDate, "dd/mm/yyyy")}
           </CardText>
-          <CardText>Phòng ban: {staff.department.name}</CardText>
+          <CardText>Phòng ban: {staffDepart.name} </CardText>
           <CardText>Số ngày nghỉ còn lại: {staff.annualLeave}</CardText>
           <CardText>Số ngày đã làm thêm: {staff.overTime}</CardText>
         </CardBody>
@@ -31,10 +34,29 @@ function RenderStaffDetail({ staff }) {
 }
 
 const StaffDetail = function (props) {
-  if (props.staff != null) {
+  console.log(props.departments);
+  if (props.isLoading) {
     return (
       <div className="container">
         <div className="row">
+          <Loading />
+        </div>
+      </div>
+    );
+  } else if (props.errMess) {
+    return (
+      <div className="container">
+        <div className="row">
+          <h4>
+            <props.errMess />
+          </h4>
+        </div>
+      </div>
+    );
+  } else if (props.staff != null) {
+    return (
+      <div className="container">
+        <div className="row m-1">
           <Breadcrumb>
             <BreadcrumbItem>
               <Link to="/nhanvien">Nhân viên</Link>
@@ -48,8 +70,11 @@ const StaffDetail = function (props) {
         </div>
 
         <div className="row">
-          <div className="col-12 m-1">
-            <RenderStaffDetail staff={props.staff} />
+          <div className="col-12 ">
+            <RenderStaffDetail
+              staff={props.staff}
+              department={props.departments}
+            />
           </div>
         </div>
       </div>

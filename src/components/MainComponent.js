@@ -4,51 +4,75 @@ import Header from "./HeaderComponent";
 import Footer from "./FooterComponent";
 import StaffDetail from "./StaffDetail";
 import Department from "./DepartmentsComponent";
-import { STAFFS, DEPARTMENTS } from "../shared/staffs";
+import DepartDetail from "./DepartDetail";
 import { Switch, Route, withRouter } from "react-router-dom";
 import SalaryTable from "./SalaryComponent";
 import { connect } from "react-redux";
+
+import {
+  fetchStaffs,
+  fetchDepartments,
+  fetchSalarys,
+  addNewStaff,
+} from "../redux/ActionCreator";
+
 const mapStateToProps = (state) => {
   return {
     staffs: state.staffs,
-    roles: state.roles,
     departments: state.departments,
+    salaryStaffs: state.salaryStaffs,
   };
 };
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchStaffs: () => {
+    dispatch(fetchStaffs());
+  },
+  fetchDepartments: () => {
+    dispatch(fetchDepartments());
+  },
+  fetchSalarys: () => {
+    dispatch(fetchSalarys());
+  },
+});
 
 // Presentation Component
 class Main extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      staffs: STAFFS,
-      departments: DEPARTMENTS,
-    };
-    this.addStaff = this.addStaff.bind(this);
   }
-  // Hàm thêm nhân viên
-  addStaff = (staff) => {
-    //Tìm kiếm giá trị department trùng với phần chọn trong select option
-    const department = this.state.departments.find(
-      (x) => x.id === staff.department
-    );
-    staff.department = department;
-    const id = Math.floor(Math.random() * 10000 + 16);
-    const newStaff = { id, ...staff };
-    this.setState({
-      staffs: [...this.state.staffs, newStaff],
-    });
-  };
+  componentDidMount() {
+    this.props.fetchStaffs();
+    this.props.fetchDepartments();
+    this.props.fetchSalarys();
+  }
 
   render() {
     const StaffId = ({ match }) => {
       return (
         <StaffDetail
           staff={
-            this.state.staffs.filter(
+            this.props.staffs.staffs.filter(
               (staff) => staff.id === parseInt(match.params.staffID, 10)
             )[0]
           }
+          staffLoading={this.props.staffs.isLoading}
+          errMess={this.props.staffs.errMess}
+          departments={this.props.departments.departments}
+          departErrMess={this.props.departments.errMess}
+        />
+      );
+    };
+    const DepartId = ({ match }) => {
+      console.log(match.params.departId);
+      const result = this.props.staffs.staffs.filter(
+        (x) => x.departmentId == match.params.departId
+      );
+      return (
+        <DepartDetail
+          staffOfDepart={result}
+          departments={this.props.departments.departments}
+          departErrMess={this.props.departments.errMess}
         />
       );
     };
@@ -60,19 +84,30 @@ class Main extends Component {
             exact
             path="/nhanvien"
             component={() => (
-              <Staffs onAdd={this.addStaff} staffs={this.state.staffs} />
+              <Staffs
+                staffs={this.props.staffs.staffs}
+                staffsLoading={this.props.staffs.isLoading}
+                errMess={this.props.staffs.errMess}
+              />
             )}
           />
           <Route path="/nhanvien/:staffID" component={StaffId} />
           <Route
+            exact
             path="/phongban"
             component={() => (
-              <Department departments={this.state.departments} />
+              <Department
+                departments={this.props.departments.departments}
+                departErrMess={this.props.departments.errMess}
+              />
             )}
           />
+          <Route exact path="/phongban/:departId" component={DepartId} />
           <Route
             path="/bangluong"
-            component={() => <SalaryTable luong={this.state.staffs} />}
+            component={() => (
+              <SalaryTable salaryStaffs={this.props.salaryStaffs.salarys} />
+            )}
           />
         </Switch>
         <Footer />
@@ -81,4 +116,4 @@ class Main extends Component {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(Main));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
