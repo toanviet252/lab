@@ -119,7 +119,6 @@ export const addNewStaff =
   (name, doB, startDate, departmentId, salaryScale, annualLeave, overTime) =>
   (dispatch) => {
     const newStaff = {
-      staffId: Math.floor(Math.random() * 10000 + 16),
       name: name,
       doB: doB,
       startDate: startDate,

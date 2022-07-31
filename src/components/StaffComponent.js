@@ -77,7 +77,7 @@ class Staffs extends Component {
       values.name,
       values.doB,
       values.startDate,
-      values.department,
+      values.departmentId,
       values.salaryScale,
       values.annualLeave,
       values.overTime
@@ -250,14 +250,14 @@ class Staffs extends Component {
                   </Col>
                 </Row>
                 <Row className="form-group">
-                  <Label htmlFor="department" md={4}>
+                  <Label htmlFor="departmentId" md={4}>
                     Phòng ban
                   </Label>
                   <Col md={8}>
                     <Control.select
-                      model=".department"
-                      id="department"
-                      name="department"
+                      model=".departmentId"
+                      id="departmentId"
+                      name="departmentId"
                       defaultValue="Dept01"
                       className="form-control"
                     >
@@ -307,6 +307,7 @@ class Staffs extends Component {
                       name="annualLeave"
                       className="form-control"
                       validators={{
+                        required,
                         isNumber,
                       }}
                     />
@@ -315,6 +316,7 @@ class Staffs extends Component {
                       model=".annualLeave"
                       show="touched"
                       messages={{
+                        required: "Yêu cầu nhập",
                         isNumber: "Vui lòng nhập số",
                       }}
                     ></Errors>
@@ -332,14 +334,16 @@ class Staffs extends Component {
                       name="overTime"
                       className="form-control"
                       validators={{
+                        required,
                         isNumber,
                       }}
                     />
                     <Errors
                       className="text-danger"
-                      model=".annualLeave"
+                      model=".overTime"
                       show="touched"
                       messages={{
+                        required: "Yêu cầu nhập",
                         isNumber: "Vui lòng nhập số",
                       }}
                     ></Errors>
