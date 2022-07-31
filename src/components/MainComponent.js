@@ -34,6 +34,27 @@ const mapDispatchToProps = (dispatch) => ({
   fetchSalarys: () => {
     dispatch(fetchSalarys());
   },
+  addNewStaff: (
+    name,
+    doB,
+    startDate,
+    departmentId,
+    salaryScale,
+    annualLeave,
+    overTime
+  ) => {
+    dispatch(
+      addNewStaff(
+        name,
+        doB,
+        startDate,
+        departmentId,
+        salaryScale,
+        annualLeave,
+        overTime
+      )
+    );
+  },
 });
 
 // Presentation Component
@@ -88,6 +109,7 @@ class Main extends Component {
                 staffs={this.props.staffs.staffs}
                 staffsLoading={this.props.staffs.isLoading}
                 errMess={this.props.staffs.errMess}
+                addNewStaff={this.props.addNewStaff}
               />
             )}
           />

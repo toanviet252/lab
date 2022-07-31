@@ -106,9 +106,61 @@ export const salarysAdded = (salarys) => ({
 });
 
 //Add new Staff
-export const addStaffSucced = () => ({
+export const addStaffSucced = (staff) => ({
   type: ActionTypes.ADD_STAFF_SUCCESS,
+  payload: staff,
 });
-export const addStafFailed = () => ({
+export const addStafFailed = (errmess) => ({
   type: ActionTypes.ADD_STAFF_FAILED,
+  payload: errmess,
 });
+
+export const addNewStaff =
+  (name, doB, startDate, departmentId, salaryScale, annualLeave, overTime) =>
+  (dispatch) => {
+    const newStaff = {
+      staffId: Math.floor(Math.random() * 10000 + 16),
+      name: name,
+      doB: doB,
+      startDate: startDate,
+      departmentId: departmentId,
+      salaryScale: salaryScale,
+      annualLeave: annualLeave,
+      overTime: overTime,
+      image: "/assets/images/alberto.png",
+    };
+    console.log(newStaff);
+    return fetch(baseUrl + "staffs", {
+      method: "POST",
+      body: JSON.stringify(newStaff),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "same-origin",
+    })
+      .then(
+        (response) => {
+          if (response.ok) {
+            return response;
+          } else {
+            var error = new Error(
+              "Error" + response.status + ":" + response.statusText
+            );
+            error.response = response;
+            throw error;
+          }
+        },
+        (error) => {
+          var errMess = new Error(error.message);
+          throw errMess;
+        }
+      )
+      .then((res) => res.json())
+      .then((res) => dispatch(addStaffSucced(res)))
+      .catch((err) => {
+        console.log("ADD STAFF", err.message);
+        alert(`
+      Your Staff couldn't posted!
+      ${err.message}`);
+      });
+  };

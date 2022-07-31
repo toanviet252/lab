@@ -30,6 +30,14 @@ export const Staffs = (
         errMess: action.payload,
         staffs: [],
       };
+    //ADD new Staff
+    case ActionTypes.ADD_STAFF_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        errMess: null,
+        staffs: action.payload,
+      };
 
     default:
       return state;

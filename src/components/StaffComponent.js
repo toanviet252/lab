@@ -71,8 +71,17 @@ class Staffs extends Component {
 
   // Hàm xử lý khi nhấn button 'thêm'
   handleSubmit(values) {
+    this.toggleModal();
     // Lấy thông tin nhân viên vừa nhập
-    console.log(values);
+    this.props.addNewStaff(
+      values.name,
+      values.doB,
+      values.startDate,
+      values.department,
+      values.salaryScale,
+      values.annualLeave,
+      values.overTime
+    );
   }
 
   render() {
