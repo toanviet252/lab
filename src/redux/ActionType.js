@@ -15,3 +15,10 @@ export const SALARY_ADDED = "SALARY_ADDED";
 //ADD new staff
 export const ADD_STAFF_FAILED = "ADD_STAFF_FAILED";
 export const ADD_STAFF_SUCCESS = "ADD_STAFF_SUCCESS";
+
+//Update staff
+export const UPDATE_STAFF_FAILED = "UPDATE_STAFF_FAILED";
+export const UPDATE_STAFF_SUCCESS = "UPDATE_STAFF_SUCCESS";
+
+//Delete staff
+export const DELETE_STAFF = "DELETE_STAFF";

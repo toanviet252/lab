@@ -163,3 +163,90 @@ export const addNewStaff =
       ${err.message}`);
       });
   };
+
+//Update staff
+export const updateStaffSucced = (staff) => ({
+  type: ActionTypes.UPDATE_STAFF_SUCCESS,
+  payload: staff,
+});
+export const updateStafFailed = (errmess) => ({
+  type: ActionTypes.UPDATE_STAFF_FAILED,
+  payload: errmess,
+});
+
+export const updateStaff =
+  (
+    staffId,
+    name,
+    doB,
+    startDate,
+    departmentId,
+    salaryScale,
+    annualLeave,
+    overTime
+  ) =>
+  (dispatch) => {
+    const update = {
+      id: staffId,
+      name: name,
+      doB: doB,
+      startDate: startDate,
+      departmentId: departmentId,
+      salaryScale: salaryScale,
+      annualLeave: annualLeave,
+      overTime: overTime,
+      image: "/assets/images/alberto.png",
+    };
+    console.log(update);
+    return fetch(baseUrl + "staffs", {
+      method: "PATCH",
+      body: JSON.stringify(update),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "same-origin",
+    })
+      .then(
+        (response) => {
+          if (response.ok) {
+            return response;
+          } else {
+            var error = new Error(
+              "Error" + response.status + ":" + response.statusText
+            );
+            error.response = response;
+            throw error;
+          }
+        },
+        (error) => {
+          var errMess = new Error(error.message);
+          throw errMess;
+        }
+      )
+      .then((res) => res.json())
+      .then((res) => dispatch(updateStaffSucced(res)))
+      .catch((err) => {
+        console.log("UPDATE STAFF", err.message);
+        alert(`
+      Your Staff couldn't UPDATE!
+      ${err.message}`);
+      });
+  };
+
+// Delete staff
+export const deleteStaff = (staffId) => (dispatch) => {
+  return fetch(baseUrl + "staffs/" + staffId, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "same-origin",
+  })
+    .then((res) => res.json())
+    .then((res) => dispatch(deletedStaff(res)));
+};
+
+export const deletedStaff = (staffId) => ({
+  type: ActionTypes.DELETE_STAFF,
+  payload: staffId,
+});

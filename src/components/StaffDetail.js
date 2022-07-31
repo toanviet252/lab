@@ -60,11 +60,24 @@ class StaffDetail extends Component {
     this.setState({ isModalOpen: !this.state.isModalOpen });
   }
   // Hàm handle Submit
-  handleSubmit(value) {
-    console.log(value);
+  handleSubmit(values) {
+    console.log(values);
+    this.toggleModal();
+    // Lấy thông tin nhân viên vừa nhập
+    this.props.updateStaff(
+      this.props.staff.id,
+      values.name,
+      values.doB,
+      values.startDate,
+      values.departmentId,
+      values.salaryScale,
+      values.annualLeave,
+      values.overTime
+    );
   }
   render() {
     console.log(this.props.staff && this.props.staff.doB);
+    console.log(this.props.staff && this.props.staff.id);
     if (this.props.isLoading) {
       return (
         <div className="container">

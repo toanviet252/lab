@@ -29,19 +29,24 @@ const isNumber = (val) => !Number.isNaN(Number(val));
 const numRange = (val) => val > 0;
 
 // Hàm render toàn bộ staff
-function RenderStaff({ staff, isLoading, errMess }) {
+function RenderStaff({ staff, isLoading, errMess, deleteStaff }) {
   if (isLoading) {
     return <Loading />;
   } else if (errMess) {
     return <h4>{errMess}</h4>;
   } else {
     return (
-      <Link to={`/nhanvien/${staff.id}`}>
-        <CardBody>
-          <CardImg src={staff.image}></CardImg>
-          <CardText className="text-center"> {staff.name}</CardText>
-        </CardBody>
-      </Link>
+      <div className="container">
+        <Link to={`/nhanvien/${staff.id}`}>
+          <CardBody>
+            <CardImg src={staff.image}></CardImg>
+            <CardText className="text-center"> {staff.name}</CardText>
+          </CardBody>
+        </Link>
+        <Button color="danger" onClick={() => deleteStaff(staff.id)}>
+          Xoá
+        </Button>
+      </div>
     );
   }
 }
@@ -122,6 +127,7 @@ class Staffs extends Component {
                   staff={staff}
                   staffsLoading={this.props.staffsLoading}
                   errMess={this.props.errMess}
+                  deleteStaff={this.props.deleteStaff}
                 />
               </Card>
             </div>

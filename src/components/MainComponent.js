@@ -14,6 +14,8 @@ import {
   fetchDepartments,
   fetchSalarys,
   addNewStaff,
+  updateStaff,
+  deleteStaff,
 } from "../redux/ActionCreator";
 
 const mapStateToProps = (state) => {
@@ -55,6 +57,32 @@ const mapDispatchToProps = (dispatch) => ({
       )
     );
   },
+  updateStaff: (
+    staffId,
+    name,
+    doB,
+    startDate,
+    departmentId,
+    salaryScale,
+    annualLeave,
+    overTime
+  ) => {
+    dispatch(
+      updateStaff(
+        staffId,
+        name,
+        doB,
+        startDate,
+        departmentId,
+        salaryScale,
+        annualLeave,
+        overTime
+      )
+    );
+  },
+  deleteStaff: (id) => {
+    dispatch(deleteStaff(id));
+  },
 });
 
 // Presentation Component
@@ -81,6 +109,8 @@ class Main extends Component {
           errMess={this.props.staffs.errMess}
           departments={this.props.departments.departments}
           departErrMess={this.props.departments.errMess}
+          updateStaff={this.props.updateStaff}
+          deleteStaff={this.props.deleteStaff}
         />
       );
     };
@@ -110,6 +140,8 @@ class Main extends Component {
                 staffsLoading={this.props.staffs.isLoading}
                 errMess={this.props.staffs.errMess}
                 addNewStaff={this.props.addNewStaff}
+                updateStaff={this.props.updateStaff}
+                deleteStaff={this.props.deleteStaff}
               />
             )}
           />
@@ -128,7 +160,10 @@ class Main extends Component {
           <Route
             path="/bangluong"
             component={() => (
-              <SalaryTable salaryStaffs={this.props.salaryStaffs.salarys} />
+              <SalaryTable
+                salaryStaffs={this.props.salaryStaffs.salarys}
+                deleteStaff={this.props.deleteStaff}
+              />
             )}
           />
         </Switch>

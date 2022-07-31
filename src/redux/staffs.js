@@ -38,7 +38,22 @@ export const Staffs = (
         errMess: null,
         staffs: action.payload,
       };
-
+    //Update staff
+    case ActionTypes.UPDATE_STAFF_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        errMess: null,
+        staffs: action.payload,
+      };
+    //Delete Staff
+    case ActionTypes.DELETE_STAFF:
+      return {
+        ...state,
+        isLoading: false,
+        errMess: null,
+        staffs: action.payload,
+      };
     default:
       return state;
   }
