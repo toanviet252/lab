@@ -158,6 +158,7 @@ export const addNewStaff =
       .then((res) => {
         dispatch(addStaffSucced(res));
         dispatch(fetchSalarys());
+        dispatch(fetchDepartments());
       })
       .catch((err) => {
         console.log("ADD STAFF", err.message);
