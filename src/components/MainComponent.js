@@ -116,7 +116,6 @@ class Main extends Component {
       );
     };
     const DepartId = ({ match }) => {
-      console.log(match.params.departId);
       const result = this.props.staffs.staffs.filter(
         (x) => x.departmentId == match.params.departId
       );

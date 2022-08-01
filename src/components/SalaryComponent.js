@@ -51,10 +51,6 @@ function RenderSalrary({ salary, salaryValue }) {
 }
 
 const SalaryTable = function (props) {
-  const [staffList] = useState(props.salaryStaffs);
-  console.log([staffList]);
-
-  // staffList sẽ thay đổi khi nhấn vào button => {salary} cũng thay đổi theo
   const salary = props.salaryStaffs.map((salary) => {
     return (
       <div key={salary.id} className="col-12 col-md-5 col-lg-3 m-1">

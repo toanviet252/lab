@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import dateFormat from "dateformat";
 import {
   CardBody,
   CardText,
@@ -10,7 +9,6 @@ import {
   Card,
 } from "reactstrap";
 import { Loading } from "./LoadingComponent";
-import { FadeTransform, Stagger } from "react-animation-components";
 
 function RenderStaffDetail({ staff }) {
   return (
@@ -26,7 +24,6 @@ function RenderStaffDetail({ staff }) {
 }
 
 const DepartDetail = function (props) {
-  console.log(props.staffOfDepart);
   if (props.isLoading) {
     return (
       <div className="container">
