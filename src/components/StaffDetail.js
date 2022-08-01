@@ -18,26 +18,36 @@ import {
 } from "reactstrap";
 import { Loading } from "./LoadingComponent";
 import { LocalForm, Errors, Control } from "react-redux-form";
+import { FadeTransform } from "react-animation-components";
 
 function RenderStaffDetail({ staff, department }) {
   const staffDepart = department.filter((x) => x.id === staff.departmentId)[0];
   console.log(staffDepart);
   return (
-    <div className="container">
-      <div className="row">
-        <CardImg src={staff.image} className="col-sm-12 col-md-3"></CardImg>
-        <CardBody>
-          <CardTitle heading>Tên nhân viên: {staff.name}</CardTitle>
-          <CardText>Ngày sinh: {dateFormat(staff.doB, "dd/mm/yyyy")}</CardText>
-          <CardText>
-            Ngày vào công ty: {dateFormat(staff.startDate, "dd/mm/yyyy")}
-          </CardText>
-          <CardText>Phòng ban: {staffDepart && staffDepart.name}</CardText>
-          <CardText>Số ngày nghỉ còn lại: {staff.annualLeave}</CardText>
-          <CardText>Số ngày đã làm thêm: {staff.overTime}</CardText>
-        </CardBody>
+    <FadeTransform
+      in
+      transformProps={{
+        exitTransform: "scale(0.8) translateY(-50%)",
+      }}
+    >
+      <div className="container">
+        <div className="row">
+          <CardImg src={staff.image} className="col-sm-12 col-md-3"></CardImg>
+          <CardBody>
+            <CardTitle heading>Tên nhân viên: {staff.name}</CardTitle>
+            <CardText>
+              Ngày sinh: {dateFormat(staff.doB, "dd/mm/yyyy")}
+            </CardText>
+            <CardText>
+              Ngày vào công ty: {dateFormat(staff.startDate, "dd/mm/yyyy")}
+            </CardText>
+            <CardText>Phòng ban: {staffDepart && staffDepart.name}</CardText>
+            <CardText>Số ngày nghỉ còn lại: {staff.annualLeave}</CardText>
+            <CardText>Số ngày đã làm thêm: {staff.overTime}</CardText>
+          </CardBody>
+        </div>
       </div>
-    </div>
+    </FadeTransform>
   );
 }
 
@@ -276,7 +286,6 @@ class StaffDetail extends Component {
                       name="annualLeave"
                       className="form-control"
                       validators={{
-                        required,
                         isNumber,
                       }}
                     />
@@ -285,7 +294,6 @@ class StaffDetail extends Component {
                       model=".annualLeave"
                       show="touched"
                       messages={{
-                        required: "Yêu cầu nhập",
                         isNumber: "Vui lòng nhập số",
                       }}
                     ></Errors>
@@ -303,7 +311,6 @@ class StaffDetail extends Component {
                       name="overTime"
                       className="form-control"
                       validators={{
-                        required,
                         isNumber,
                       }}
                     />
@@ -312,7 +319,6 @@ class StaffDetail extends Component {
                       model=".overTime"
                       show="touched"
                       messages={{
-                        required: "Yêu cầu nhập",
                         isNumber: "Vui lòng nhập số",
                       }}
                     ></Errors>

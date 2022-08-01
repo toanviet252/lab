@@ -8,6 +8,7 @@ import DepartDetail from "./DepartDetail";
 import { Switch, Route, withRouter } from "react-router-dom";
 import SalaryTable from "./SalaryComponent";
 import { connect } from "react-redux";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 import {
   fetchStaffs,
@@ -130,43 +131,51 @@ class Main extends Component {
     return (
       <div>
         <Header />
-        <Switch>
-          <Route
-            exact
-            path="/nhanvien"
-            component={() => (
-              <Staffs
-                staffs={this.props.staffs.staffs}
-                staffsLoading={this.props.staffs.isLoading}
-                errMess={this.props.staffs.errMess}
-                addNewStaff={this.props.addNewStaff}
-                updateStaff={this.props.updateStaff}
-                deleteStaff={this.props.deleteStaff}
+        <TransitionGroup>
+          <CSSTransition
+            key={this.props.location.key}
+            classNames="page"
+            timeout={300}
+          >
+            <Switch>
+              <Route
+                exact
+                path="/nhanvien"
+                component={() => (
+                  <Staffs
+                    staffs={this.props.staffs.staffs}
+                    staffsLoading={this.props.staffs.isLoading}
+                    errMess={this.props.staffs.errMess}
+                    addNewStaff={this.props.addNewStaff}
+                    updateStaff={this.props.updateStaff}
+                    deleteStaff={this.props.deleteStaff}
+                  />
+                )}
               />
-            )}
-          />
-          <Route path="/nhanvien/:staffID" component={StaffId} />
-          <Route
-            exact
-            path="/phongban"
-            component={() => (
-              <Department
-                departments={this.props.departments.departments}
-                departErrMess={this.props.departments.errMess}
+              <Route path="/nhanvien/:staffID" component={StaffId} />
+              <Route
+                exact
+                path="/phongban"
+                component={() => (
+                  <Department
+                    departments={this.props.departments.departments}
+                    departErrMess={this.props.departments.errMess}
+                  />
+                )}
               />
-            )}
-          />
-          <Route exact path="/phongban/:departId" component={DepartId} />
-          <Route
-            path="/bangluong"
-            component={() => (
-              <SalaryTable
-                salaryStaffs={this.props.salaryStaffs.salarys}
-                deleteStaff={this.props.deleteStaff}
+              <Route exact path="/phongban/:departId" component={DepartId} />
+              <Route
+                path="/bangluong"
+                component={() => (
+                  <SalaryTable
+                    salaryStaffs={this.props.salaryStaffs.salarys}
+                    deleteStaff={this.props.deleteStaff}
+                  />
+                )}
               />
-            )}
-          />
-        </Switch>
+            </Switch>
+          </CSSTransition>
+        </TransitionGroup>
         <Footer />
       </div>
     );

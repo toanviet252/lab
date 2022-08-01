@@ -9,6 +9,8 @@ import {
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import NumberFormat from "react-number-format";
+import { FadeTransform } from "react-animation-components";
+
 // Hàm tính lương
 function calcSalary(salaryScale, overTime) {
   const basicSal = 3000000;
@@ -18,26 +20,33 @@ function calcSalary(salaryScale, overTime) {
 
 function RenderSalrary({ salary, salaryValue }) {
   return (
-    <Card>
-      <CardBody>
-        <CardTitle>{salary.name}</CardTitle>
-        <CardText>Mã nhân viên: {salary.id}</CardText>
-        <CardText>Hệ số lương: {salary.salaryScale}</CardText>
-        <CardText>Số ngày làm thêm: {salary.overTime}</CardText>
-        <Card>
-          <CardText>
-            Lương:
-            <NumberFormat
-              value={salaryValue}
-              displayType="text"
-              thousandSeparator={true}
-              decimalScale={0}
-            />{" "}
-            VNĐ
-          </CardText>
-        </Card>
-      </CardBody>
-    </Card>
+    <FadeTransform
+      in
+      transformProps={{
+        exitTransform: "scale(0.5) translateX(-50%)",
+      }}
+    >
+      <Card>
+        <CardBody>
+          <CardTitle>{salary.name}</CardTitle>
+          <CardText>Mã nhân viên: {salary.id}</CardText>
+          <CardText>Hệ số lương: {salary.salaryScale}</CardText>
+          <CardText>Số ngày làm thêm: {salary.overTime}</CardText>
+          <Card>
+            <CardText>
+              Lương:
+              <NumberFormat
+                value={salaryValue}
+                displayType="text"
+                thousandSeparator={true}
+                decimalScale={0}
+              />{" "}
+              VNĐ
+            </CardText>
+          </Card>
+        </CardBody>
+      </Card>
+    </FadeTransform>
   );
 }
 

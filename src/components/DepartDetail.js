@@ -5,26 +5,22 @@ import {
   CardBody,
   CardText,
   CardImg,
-  CardTitle,
   Breadcrumb,
   BreadcrumbItem,
   Card,
 } from "reactstrap";
 import { Loading } from "./LoadingComponent";
+import { FadeTransform, Stagger } from "react-animation-components";
 
 function RenderStaffDetail({ staff }) {
   return (
-    <Card className="col-12 col-md-5 m-2">
-      <CardImg src={staff.image} className="col-6 mt-1"></CardImg>
-      <CardBody>
-        <CardTitle heading>Tên nhân viên: {staff.name}</CardTitle>
-        <CardText>Ngày sinh: {dateFormat(staff.doB, "dd/mm/yyyy")}</CardText>
-        <CardText>
-          Ngày vào công ty: {dateFormat(staff.startDate, "dd/mm/yyyy")}
-        </CardText>
-        <CardText>Số ngày nghỉ còn lại: {staff.annualLeave}</CardText>
-        <CardText>Số ngày đã làm thêm: {staff.overTime}</CardText>
-      </CardBody>
+    <Card className="col-12 col-md-5 col-lg-2 m-2">
+      <Link to={`/nhanvien/${staff.id}`}>
+        <CardBody>
+          <CardImg src={staff.image}></CardImg>
+          <CardText className="text-center"> {staff.name}</CardText>
+        </CardBody>
+      </Link>
     </Card>
   );
 }

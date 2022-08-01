@@ -16,7 +16,7 @@ import {
   Col,
   Row,
 } from "reactstrap";
-
+import { FadeTransform } from "react-animation-components";
 import { Link } from "react-router-dom";
 import { Component } from "react/cjs/react.production.min";
 import { Control, LocalForm, Errors } from "react-redux-form";
@@ -36,17 +36,33 @@ function RenderStaff({ staff, isLoading, errMess, deleteStaff }) {
     return <h4>{errMess}</h4>;
   } else {
     return (
-      <div className="container">
-        <Link to={`/nhanvien/${staff.id}`}>
-          <CardBody>
-            <CardImg src={staff.image}></CardImg>
-            <CardText className="text-center"> {staff.name}</CardText>
-          </CardBody>
-        </Link>
-        <Button color="danger" onClick={() => deleteStaff(staff.id)}>
-          Xoá
-        </Button>
-      </div>
+      <FadeTransform
+        in
+        transformProps={{
+          exitTransform: "scale(0.5) translateY(-50%)",
+        }}
+      >
+        <Card className="mb-3">
+          <Link to={`/nhanvien/${staff.id}`}>
+            <CardBody>
+              <CardImg src={staff.image}></CardImg>
+              <CardText className="text-center"> {staff.name}</CardText>
+            </CardBody>
+          </Link>
+          <Button
+            className="w-50 h-25 "
+            color="danger"
+            onClick={() => {
+              // eslint-disable-next-line no-restricted-globals
+              if (confirm("Bạn có muốn xoá nhân viên này")) {
+                deleteStaff(staff.id);
+              }
+            }}
+          >
+            Xoá
+          </Button>
+        </Card>
+      </FadeTransform>
     );
   }
 }
@@ -122,46 +138,46 @@ class Staffs extends Component {
         .map((staff) => {
           return (
             <div key={staff.id} className="col-lg-2 col-md-3 col-sm-6">
-              <Card className="mb-3">
-                <RenderStaff
-                  staff={staff}
-                  staffsLoading={this.props.staffsLoading}
-                  errMess={this.props.errMess}
-                  deleteStaff={this.props.deleteStaff}
-                />
-              </Card>
+              <RenderStaff
+                staff={staff}
+                staffsLoading={this.props.staffsLoading}
+                errMess={this.props.errMess}
+                deleteStaff={this.props.deleteStaff}
+              />
             </div>
           );
         });
       return (
         <div className="container">
-          <div className="row mt-1">
+          <div className="row mt-1 justify-content-between ">
             <Breadcrumb className="ml-3">
               <BreadcrumbItem>
                 <Link to="/nhanvien">Nhân viên</Link>
               </BreadcrumbItem>
             </Breadcrumb>
-            <div className="col-4">
-              <Button className="ml-auto mt-1" onClick={this.toggleModal}>
-                <span className="fa fa-plus fa-lg"></span>
-              </Button>
-            </div>
-            <div className="col-12 col-md-6">
-              <Form onSubmit={this.findStaff} className="form-group row">
-                <div className="col-8 mt-1">
-                  <Input
-                    type="text"
-                    id="nameS"
-                    name="nameS"
-                    placeholder="Tìm kiến tên nhân viên"
-                  />
-                </div>
-                <div className="col-4 mt-1">
-                  <Button color="primary" type="submit" className="search">
-                    Tìm kiếm
-                  </Button>
-                </div>
-              </Form>
+            <div className="row ml-2 mr-2">
+              <div className="col-2">
+                <Button className="ml-auto mt-1" onClick={this.toggleModal}>
+                  <span className="fa fa-plus fa-lg"></span>
+                </Button>
+              </div>
+              <div className="col-10 mt-1 ">
+                <Form onSubmit={this.findStaff} className="form-group row">
+                  <div className="col-8 ">
+                    <Input
+                      type="text"
+                      id="nameS"
+                      name="nameS"
+                      placeholder="Tìm kiến tên nhân viên"
+                    />
+                  </div>
+                  <div className="col-4 ">
+                    <Button color="primary" type="submit" className="search">
+                      Tìm kiếm
+                    </Button>
+                  </div>
+                </Form>
+              </div>
             </div>
           </div>
           <div className="row ml-1">
@@ -322,7 +338,7 @@ class Staffs extends Component {
                       model=".annualLeave"
                       show="touched"
                       messages={{
-                        required: "Yêu cầu nhập",
+                        required: "",
                         isNumber: "Vui lòng nhập số",
                       }}
                     ></Errors>
@@ -349,7 +365,7 @@ class Staffs extends Component {
                       model=".overTime"
                       show="touched"
                       messages={{
-                        required: "Yêu cầu nhập",
+                        required: "",
                         isNumber: "Vui lòng nhập số",
                       }}
                     ></Errors>
