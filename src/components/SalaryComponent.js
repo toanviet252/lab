@@ -43,33 +43,6 @@ function RenderSalrary({ salary, salaryValue }) {
 }
 
 const SalaryTable = function (props) {
-  const [staffList, setStaffList] = useState(props.salaryStaffs);
-  console.log([staffList]);
-  function sortSalary(sorttype) {
-    // copy mảng staffList để ko làm thay đổi giá trị
-    let sortedStaffList = [...staffList];
-    let salaryA = 0;
-    let salaryB = 0;
-
-    if (sorttype === "increase") {
-      //array.sort có sẵn trong thư viện react
-      sortedStaffList.sort(function (a, b) {
-        salaryA = calcSalary(a.salaryScale, a.overTime);
-        salaryB = calcSalary(b.salaryScale, b.overTime);
-        return salaryA - salaryB;
-      });
-    }
-
-    if (sorttype === "decrease") {
-      sortedStaffList.sort(function (a, b) {
-        salaryA = calcSalary(a.salaryScale, a.overTime);
-        salaryB = calcSalary(b.salaryScale, b.overTime);
-        return salaryB - salaryA;
-      });
-    }
-    // Đổi state của array setstaffList
-    setStaffList(sortedStaffList);
-  }
   // staffList sẽ thay đổi khi nhấn vào button => {salary} cũng thay đổi theo
   const salary = props.salaryStaffs.map((salary) => {
     return (
@@ -90,20 +63,6 @@ const SalaryTable = function (props) {
           </BreadcrumbItem>
           <BreadcrumbItem>Bảng lương</BreadcrumbItem>
         </Breadcrumb>
-      </div>
-      <div id="sort" className="row">
-        <div className="col-12">
-          <h5>Sắp Xếp Theo Lương</h5>
-        </div>
-        <div className="col-12">
-          <Button onClick={() => sortSalary("increase")}>
-            <span class="fa fa-sort-amount-asc"></span> Lương Thấp
-          </Button>
-
-          <Button onClick={() => sortSalary("decrease")}>
-            <span class="fa fa-sort-amount-desc"></span> Lương Cao
-          </Button>
-        </div>
       </div>
       <div className="row">{salary}</div>
     </div>
