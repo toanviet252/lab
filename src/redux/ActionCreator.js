@@ -157,6 +157,7 @@ export const addNewStaff =
       .then((res) => res.json())
       .then((res) => {
         dispatch(addStaffSucced(res));
+        // Cập nhật lại bảng lương
         dispatch(fetchSalarys());
       })
       .catch((err) => {
@@ -227,7 +228,11 @@ export const updateStaff =
         }
       )
       .then((res) => res.json())
-      .then((res) => dispatch(updateStaffSucced(res)))
+      .then((res) => {
+        dispatch(updateStaffSucced(res));
+        // cập nhật lại bảng lương
+        dispatch(fetchSalarys());
+      })
       .catch((err) => {
         console.log("UPDATE STAFF", err.message);
         alert(`
@@ -246,7 +251,10 @@ export const deleteStaff = (staffId) => (dispatch) => {
     credentials: "same-origin",
   })
     .then((res) => res.json())
-    .then((res) => dispatch(deletedStaff(res)));
+    .then((res) => {
+      dispatch(deletedStaff(res));
+      dispatch(fetchSalarys());
+    });
 };
 
 export const deletedStaff = (staffId) => ({
